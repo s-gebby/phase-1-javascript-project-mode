@@ -1,0 +1,18 @@
+{
+  "recipes": [
+    {
+      "id": 1,
+      "title": "Spaghetti Carbonara",
+      "summary": "A classic Italian pasta dish...",
+      "image": "https://t4.ftcdn.net/jpg/01/41/12/25/360_F_141122511_X1eEXS9nH13p6TziRMEmAvPmQVCYbyWy.jpg",
+      "instructions": "1. Boil water..."
+    },
+    {
+      "id": 2,
+      "title": "Chicken Stir-Fry",
+      "summary": "A quick and easy Asian-inspired dish...",
+      "image": "https://img.freepik.com/free-photo/chicken-stir-fry-vegetables_123827-21543.jpg",
+      "instructions": "1. Heat oil in a pan..."
+    }
+  ]
+}
