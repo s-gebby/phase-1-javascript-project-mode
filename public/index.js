@@ -1,6 +1,16 @@
-document
-  .getElementById("fetchRecipesBtn")
-  .addEventListener("click", fetchRecipes);
+document.addEventListener("DOMContentLoaded", function () {
+  document
+    .getElementById("fetchRecipesBtn")
+    .addEventListener("click", fetchRecipes);
+
+  document.querySelector("h1").addEventListener("mouseover", function () {
+    alert("Welcome to Recipe Finder!");
+  });
+
+  document.querySelector("h1").addEventListener("mouseout", function () {
+    alert("Come back soon!");
+  });
+});
 
 function fetchRecipes() {
   fetch("http://localhost:3000/recipes")

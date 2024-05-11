@@ -5,8 +5,15 @@ body {
   background-color: #deddd9;
 }
 
-h1 {
+h1,
+h2 {
   text-align: center;
+}
+
+p {
+  text-align: center;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 button {
