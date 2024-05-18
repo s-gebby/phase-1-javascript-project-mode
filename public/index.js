@@ -1,29 +1,42 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Event listener for the "Fetch Random Recipe" button
-  document
-    .getElementById("fetchRecipeBtn")
-    .addEventListener("click", fetchRecipe);
+  // Ensure these IDs match the ones in your HTML
+  const fetchRecipeBtn = document.getElementById("fetchRecipeBtn");
+  const darkModeBtn = document.getElementById("darkModeBtn");
+  const recipesContainer = document.getElementById("recipesContainer");
 
-  document
-    .getElementById("darkModeBtn")
-    .addEventListener("click", toggleDarkMode);
+  if (fetchRecipeBtn) {
+    fetchRecipeBtn.addEventListener("click", fetchRecipe);
+  } else {
+    console.error("fetchRecipeBtn not found in the DOM.");
+  }
+
+  if (darkModeBtn) {
+    darkModeBtn.addEventListener("click", toggleDarkMode);
+  } else {
+    console.error("darkModeBtn not found in the DOM.");
+  }
+
+  if (!recipesContainer) {
+    console.error("recipesContainer not found in the DOM.");
+  }
 });
 
 function fetchRecipe() {
   fetch("http://localhost:3000/recipes")
     .then((response) => response.json())
     .then((data) => {
-      displayRecipe(data);
+      displayRandomRecipe(data);
     })
     .catch((error) => {
-      console.error("Error fetching recipe:", error);
+      console.error("Error fetching recipes:", error);
     });
 }
 
-function displayRecipe(recipes) {
+function displayRandomRecipe(recipes) {
   const recipesContainer = document.getElementById("recipesContainer");
-  recipesContainer.innerHTML = "";
+  recipesContainer.innerHTML = ""; // Clear the container
 
+  // Select a random recipe
   const randomIndex = Math.floor(Math.random() * recipes.length);
   const recipe = recipes[randomIndex];
 

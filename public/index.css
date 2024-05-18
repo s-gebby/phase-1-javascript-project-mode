@@ -25,6 +25,27 @@ p {
 button {
   margin: 20px auto;
   display: block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #574d31;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px #3e3a29;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #6b5a3e;
+  box-shadow: 0 4px #574d31;
+}
+
+button:active {
+  background-color: #4a3d28;
+  box-shadow: 0 2px #3e3a29;
+  transform: translateY(2px);
 }
 
 #recipesContainer {
