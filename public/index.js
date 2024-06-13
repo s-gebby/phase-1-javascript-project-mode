@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Ensure these IDs match the ones in your HTML
   const fetchRecipeBtn = document.getElementById("fetchRecipeBtn");
   const darkModeBtn = document.getElementById("darkModeBtn");
   const recipesContainer = document.getElementById("recipesContainer");
 
+  // Event listeners for buttons
   if (fetchRecipeBtn) {
     fetchRecipeBtn.addEventListener("click", fetchRecipe);
   } else {
@@ -27,12 +27,17 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+// Fetch recipes from the API or local server
 function fetchRecipe() {
   fetch("http://localhost:3000/recipes")
     .then((response) => response.json())
     .then((recipes) => {
       if (Array.isArray(recipes)) {
-        displayRandomRecipe(recipes);
+        // Use filter to get only recipes with more than 3 instructions
+        const filteredRecipes = recipes.filter(
+          (recipe) => recipe.instructions.length > 3
+        );
+        displayRandomRecipe(filteredRecipes);
       } else {
         console.error("Invalid data structure:", recipes);
       }
@@ -42,9 +47,10 @@ function fetchRecipe() {
     });
 }
 
+// Display a random recipe
 function displayRandomRecipe(recipes) {
-  if (!Array.isArray(recipes)) {
-    console.error("Invalid recipes array:", recipes);
+  if (!Array.isArray(recipes) || recipes.length === 0) {
+    console.error("Invalid or empty recipes array:", recipes);
     return;
   }
 
@@ -54,6 +60,15 @@ function displayRandomRecipe(recipes) {
   // Select a random recipe
   const randomIndex = Math.floor(Math.random() * recipes.length);
   const recipe = recipes[randomIndex];
+
+  // Summarize the total number of instructions using reduce
+  const totalInstructions = recipes.reduce(
+    (total, recipe) => total + recipe.instructions.length,
+    0
+  );
+  console.log(
+    `Total number of instructions across all recipes: ${totalInstructions}`
+  );
 
   const recipeElement = document.createElement("div");
   recipeElement.classList.add("recipe");
@@ -71,27 +86,44 @@ function displayRandomRecipe(recipes) {
     </div>
   `;
 
-  // Event listener for increasing size on hover for the image
+  // Event listeners for image and summary interactions
   const imgElement = recipeElement.querySelector("img");
   imgElement.addEventListener("mouseover", function () {
-    this.style.transform = "scale(1.05)"; // Increase size by 10%
+    this.style.transform = "scale(1.05)";
   });
   imgElement.addEventListener("mouseout", function () {
-    this.style.transform = "scale(1)"; // Revert to original size
+    this.style.transform = "scale(1)";
   });
 
-  // Event listener for increasing size on hover for the summary paragraph
   const summaryElement = recipeElement.querySelector(".summary");
   summaryElement.addEventListener("mouseover", function () {
-    this.style.transform = "scale(1.05)"; // Increase size by 10%
+    this.style.transform = "scale(1.05)";
   });
   summaryElement.addEventListener("mouseout", function () {
-    this.style.transform = "scale(1)"; // Revert to original size
+    this.style.transform = "scale(1)";
   });
 
   recipesContainer.appendChild(recipeElement);
+
+  // Use forEach to log each instruction
+  recipe.instructions.forEach((instruction, index) => {
+    console.log(`Instruction ${index + 1}: ${instruction}`);
+  });
+
+  // Use some to check if any recipe has more than 5 instructions
+  const hasComplexRecipes = recipes.some(
+    (recipe) => recipe.instructions.length > 5
+  );
+  console.log(
+    `Are there any complex recipes with more than 5 instructions? ${hasComplexRecipes}`
+  );
+
+  // Use every to check if all recipes have images
+  const allHaveImages = recipes.every((recipe) => recipe.image !== "");
+  console.log(`Do all recipes have images? ${allHaveImages}`);
 }
 
+// Toggle dark mode
 function toggleDarkMode() {
   const body = document.body;
   const isDarkMode = body.classList.toggle("dark-mode");
