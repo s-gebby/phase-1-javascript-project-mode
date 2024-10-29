@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
     console.error("darkModeBtn not found in the DOM.");
   }
 
-  if (recipesContainer) {
+  if (!recipesContainer) {
     console.error("recipesContainer not found in the DOM.");
   }
 
